@@ -13,7 +13,7 @@ public class LoginIntercrptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String requestUri=request.getRequestURI();//获取请求地址
         //1.如果是登录页面
-        if(requestUri.indexOf("login")>=0||requestUri.indexOf("Login")>=0||requestUri.indexOf("toMain")>=0||requestUri.indexOf("a")>=0){
+        if(requestUri.indexOf("login")>=0||requestUri.indexOf("Login")>=0||requestUri.indexOf("toMain")>=0||requestUri.indexOf("a")>=0||requestUri.indexOf("findForSearch")>=0){
             return true;
         }
         //2.如果用户登录过
