@@ -22,7 +22,7 @@ public class CustomerImpl implements CustomerService{
     @Override
     public List<Customer> findForSearch(Map<String, String> map) {
         //当前是第几页
-       String pageNum= map.get("page");
+       String pageNum= map.get("pageNum");
 
        //获取每页的条数
         String rows=map.get("rows");

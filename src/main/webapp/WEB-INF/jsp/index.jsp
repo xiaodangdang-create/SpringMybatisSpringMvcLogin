@@ -30,13 +30,27 @@
             padding: 10px;
         }
     </style>
+    <%--提交表单的方法--%>
+    <script>
+        /*获取你要查看的页码，并且放到表单隐藏域里面*/
+        function subPage(page) {
+            document.getElementById("pageNum").value=page;
+            subFrom();
+        }
+        function subFrom(){
+            document.getElementById("queryFor").submit();
+        }
+    </script>
+
 </head>
 <body>
 <h1>客户信息列表</h1>
 <div class="content">
-    <form:form modelAttribute="customer" action="" id="queryFor">
+    <form:form modelAttribute="customer" action="/customerController/findForSearch" id="queryFor">
+        <%--传页码--%>
+        <input type="hidden" name="pageNum" id="pageNum">
         <div>
-            <button id="queryBtn">查询</button>
+            <button id="queryBtn" onclick="subPage(1)">查询</button>
             <button id="addBtn">新增</button>
             <button id="updateBtn">修改</button>
             <button id="deleteBtn">删除</button>
@@ -49,7 +63,7 @@
             </c:if>
             <input type="text" id="customerId" name="customerId">
             <span>客户名称</span>
-            <form:input path="customerName"></form:input><br><br>
+            <form:input path="customerName" ></form:input><br><br>
             <span>客户信息来源</span>
             <form:select path="customerSourse">
                 <form:option value="">请选择</form:option>
@@ -57,8 +71,8 @@
                 <form:option value="B">网络营销</form:option>
             </form:select>
             <span>创建日期</span>
-            <input type="text" id="customerDateBegin" name="customerDateBegin">
-            <input type="text" id="customerDateEnd" name="customerDateEnd">
+            <input type="text" id="customerDateBegin" name="customerDateBegin" value="${customerDateBegin}">
+            <input type="text" id="customerDateEnd" name="customerDateEnd" value="${customerDateEnd}">
         </div>
         <br><br>
         <table border="1px" cellpadding="5" cellspacing="0">
@@ -87,15 +101,14 @@
         <!--分页开始-->
         <div>
             共有${totalRows}条数据，共有${totalPage}页，当前为第${pageNum}页<br>
-
             <ul class="pagination">
                 <%--上一页--%>
-                <c:if test="${pageNum>1}">
-                    <li><a href="#"><<</a></li>
-                </c:if>
-                <c:if test="${pageNum}=1">
-                    <li><<</li>
-                </c:if>
+                    <c:if test="${pageNum>1}">
+                        <li><a href="javascript:void(0)" onclick="subPage(${pageNum-1})"><<</a></li>
+                    </c:if>
+                    <c:if test="${pageNum==1}">
+                        <li><<</li>
+                    </c:if>
 
                 <%--中间页--%>
                 <c:choose>
@@ -128,14 +141,14 @@
                             <li>${i}</li>
                         </c:when>
                         <c:otherwise>
-                            <li><a href="#">${i}</a></li>
+                            <li><a href="javascript:void(0)" onclick="subPage(${i})">${i}</a></li>
                         </c:otherwise>
                     </c:choose>
                    <%-- <li><a href="#">1</a></li>--%>
                 </c:forEach>
                 <%--下一页--%>
                 <c:if test="${pageNum<totalPage}">
-                    <li><a href="#">>></a></li>
+                    <li><a href="javascript:void(0)" onclick="subPage(${pageNum+1})">>></a></li>
                 </c:if>
                 <c:if test="${pageNum==totalPage}">
                     <li>>></li>
