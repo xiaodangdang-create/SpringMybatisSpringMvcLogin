@@ -41,4 +41,24 @@ public class CustomerImpl implements CustomerService{
     public int findForCount(Map<String, String> map) {
         return customerMapper.findForCount(map);
     }
+
+    @Override
+    public int addCustomer(Customer customer) {
+        return customerMapper.addCustomer(customer);
+    }
+
+    @Override
+    public int deleteCustomer(String[] ids) {
+        return customerMapper.deleteCustomer(ids);
+    }
+
+    @Override
+    public Customer findById(int id) {
+        return customerMapper.findById(id);
+    }
+
+    @Override
+    public int updateCustomer(Customer customer) {
+        return customerMapper.updateCustomer(customer);
+    }
 }

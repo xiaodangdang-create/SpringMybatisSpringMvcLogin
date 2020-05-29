@@ -33,7 +33,7 @@ public class UserController {
             if (u.getFlag().equals("1")){
                 //登录成功把用户名存到session
                 session.setAttribute("activeName",u.getuName());
-                return "main";
+              return "redirect:/customerController/findForSearch";
             }else {
                 model.addAttribute("user",user);
                 model.addAttribute("errorMsg","该账号被禁用，请联系管理员");
@@ -70,7 +70,6 @@ public class UserController {
     public String taobao(){
         return "taobao";
     }
-
 
 
 }

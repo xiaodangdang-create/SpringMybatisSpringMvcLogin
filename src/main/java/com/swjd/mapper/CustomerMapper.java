@@ -17,4 +17,16 @@ public interface CustomerMapper {
 
     //总条数（满足条件的总条数，参数条件）
     public abstract int findForCount(@Param("map")Map<String,String> param);
+
+    //新增
+    public abstract int addCustomer(Customer customer);
+
+    //批量删除的方法
+    public abstract int deleteCustomer(String[] ids);
+
+    //单个查询
+    public abstract Customer findById(int id);
+
+    //修改
+    public abstract int updateCustomer(Customer customer);
 }

@@ -15,4 +15,16 @@ public interface CustomerService {
 
     //总计录数
     public abstract int findForCount(Map<String,String> map);
+
+    //新增
+    public abstract int addCustomer(Customer customer);
+
+    //批量删除的方法
+    public abstract int deleteCustomer(String[] ids);
+
+    //单个查询
+    public abstract Customer findById(int id);
+
+    //修改
+    public abstract int updateCustomer(Customer customer);
 }

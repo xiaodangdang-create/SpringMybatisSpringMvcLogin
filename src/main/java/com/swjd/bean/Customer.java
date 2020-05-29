@@ -16,7 +16,8 @@ public class Customer {
     private String customerPhone;
     private String customerAddress;
     private String customerDate;
-
+    //批量删除
+    private String[] selectCustomerId;
     public Customer() {
     }
 
@@ -128,6 +129,14 @@ public class Customer {
 
     public void setCustomerDate(String customerDate) {
         this.customerDate = customerDate;
+    }
+
+    public String[] getSelectCustomerId() {
+        return selectCustomerId;
+    }
+
+    public void setSelectCustomerId(String[] selectCustomerId) {
+        this.selectCustomerId = selectCustomerId;
     }
 
     @Override

@@ -38,7 +38,75 @@
             subFrom();
         }
         function subFrom(){
+            document.getElementById("queryFor").setAttribute("action","/customerController/findForSearch")
             document.getElementById("queryFor").submit();
+        }
+        function add(id) {
+            window.location.href="/customerController/toAdd";
+        }
+        /*全选的方法*/
+        function qx() {
+            //拿到里面的文字
+            var text=document.getElementById("All").innerHTML;
+            if (text=="全选"){
+                //拿到所有的多选框
+                var a=document.getElementsByName("selectCustomerId");
+                for (var i=0;i<a.length;i++){
+                    a[i].checked=true;
+                }
+                document.getElementById("All").innerHTML="取消";
+            } else if (text=="取消") {
+                var a=document.getElementsByName("selectCustomerId");
+                for (var i=0;i<a.length;i++){
+                    a[i].checked=false;
+                }
+                document.getElementById("All").innerHTML="全选";
+            }
+        }
+        /*删除*/
+        function del() {
+            //获取选中的多选框
+            var b=[];
+            //获取选中的所有多选框
+            var a=document.getElementsByName("selectCustomerId");
+            for (var i=0;i<a.length;i++){
+                if (a[i].checked==true){
+                    b.push(a[i]);
+                }
+            }
+            if (b.length<=0){
+                alert("请选择你要删除的数据")
+            } else{
+                if (confirm("你确认删除吗？")) {
+                    //到删除的方法
+                    document.getElementById("queryFor").setAttribute("action","/customerController/doDelete");
+                    document.getElementById("queryFor").submit();
+                }
+            }
+        }
+
+        /*修改*/
+        function up(){
+            //获取选中的多选框
+            var count=0;//多选框选中的个数
+            //1.拿到说有的多选框
+            var a=document.getElementsByName("selectCustomerId");
+            for (var i=0;i<a.length;i++){
+                if (a[i].checked==true){
+                    count++;
+                }
+            }
+            //2.判断
+            if (count>1){
+                alert("只能选择一条数据进行修改");
+            } else if (count<1){
+                alert("请选择你要修改的值");
+            } else {
+                //正常情况可到达去修改页面的controller
+                document.getElementById("queryFor").setAttribute("action","/customerController/toUpdate");
+                document.getElementById("queryFor").submit();
+
+            }
         }
     </script>
 
@@ -46,14 +114,14 @@
 <body>
 <h1>客户信息列表</h1>
 <div class="content">
-    <form:form modelAttribute="customer" action="/customerController/findForSearch" id="queryFor">
+    <form:form modelAttribute="customer" method="post" id="queryFor">
         <%--传页码--%>
         <input type="hidden" name="pageNum" id="pageNum">
         <div>
             <button id="queryBtn" onclick="subPage(1)">查询</button>
-            <button id="addBtn">新增</button>
-            <button id="updateBtn">修改</button>
-            <button id="deleteBtn">删除</button>
+            <input type="button" id="addBtn" onclick="add()" value="新增"/>
+            <input id="updateBtn" type="button" onclick="up()" value="修改"></input>
+            <input id="deleteBtn" type="button" onclick="del()" value="删除"></input>
         </div>
         <br><br>
         <div>
@@ -77,7 +145,7 @@
         <br><br>
         <table border="1px" cellpadding="5" cellspacing="0">
             <tr>
-                <td width="5%" align="center" id="All">全选</td>
+                <td width="5%" align="center" id="All" onclick="qx()">全选</td>
                 <td width="15%" align="center">客户编号</td>
                 <td width="15%" align="center">客户名称</td>
                 <td width="15%" align="center">客户负责人</td>
@@ -87,7 +155,7 @@
             </tr>
             <c:forEach var="c" items="${list}">
                 <tr>
-                    <td align="center"><input type="checkbox" name="selId"></td>
+                    <td align="center"><input type="checkbox" name="selectCustomerId" value="${c.customerId}"></td>
                     <td align="center">${c.customerId}</td>
                     <td align="center">${c.customerName}</td>
                     <td align="center">${c.customerUserName}</td>

@@ -22,7 +22,7 @@
         <!--2.指定mybatis映射文件-->
         <property name="mapperLocations" value="classpath:com/swjd/mapper/*.xml"/>
         <!--配置实体类别名-->
-        <property name="typeAliasesPackage" value="com.swjd.mapper"/>
+        <property name="typeAliasesPackage" value="com.swjd.bean"/>
     </bean>
     <!--配置mybatis接口层，自动生成实现类-->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
